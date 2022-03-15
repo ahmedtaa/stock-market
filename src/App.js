@@ -1,20 +1,27 @@
-import './App.css';
+import { useEffect } from 'react';
+import { BrowserRouter as Router, Route, Routes } from 'react-router-dom';
+import { useDispatch } from 'react-redux';
 
-function App() {
+import './App.css';
+import Header from './components/Header';
+import { fetchData } from './redux/stokes/stokes';
+import StocksList from './components/stocks/StocksList';
+import Details from './components/details/Details';
+
+export default function App() {
+  const dispatch = useDispatch();
+  useEffect(() => {
+    dispatch(fetchData());
+  }, []);
   return (
-    <div className="App">
-      <header className="App-header">
-        <p>
-          <a href="https://reactjs.org/docs/create-a-new-react-app.html">
-            Create React App
-            {' '}
-          </a>
-          template with linters By
-          <a href="https://github.com/ahmedtaa"> ahmedtaa</a>
-        </p>
-      </header>
-    </div>
+    <>
+      <Router>
+        <Header />
+        <Routes>
+          <Route path="/" exact element={<StocksList />} />
+          <Route path="/details" element={<Details />} />
+        </Routes>
+      </Router>
+    </>
   );
 }
-
-export default App;
