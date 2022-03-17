@@ -7,6 +7,7 @@ import Header from './components/Header';
 import { fetchData } from './redux/stokes/stokes';
 import StocksList from './components/stocks/StocksList';
 import Details from './components/details/Details';
+import ErrorBoundary from './helpers/ErrorBoundary';
 
 export default function App() {
   const dispatch = useDispatch();
@@ -17,10 +18,13 @@ export default function App() {
     <>
       <Router>
         <Header />
-        <Routes>
-          <Route path="/" exact element={<StocksList />} />
-          <Route path="/details" element={<Details />} />
-        </Routes>
+        <ErrorBoundary>
+          <Routes>
+            <Route path="/" exact element={<StocksList />} />
+
+            <Route path="/:id" element={<Details />} />
+          </Routes>
+        </ErrorBoundary>
       </Router>
     </>
   );

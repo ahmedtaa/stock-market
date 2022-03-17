@@ -1,42 +1,68 @@
+/* eslint-disable max-len */
 // Actions types
 
 const LOAD_STOCKS = 'stokeStore/stokes/LOAD_STOCKS';
-
+const STOCK_DETAILS = 'stokeStore/stokes/STOCK_DETAILS';
+const FILTER = 'stokeStore/stokes/FILTER';
 // actions
 
-export const loadStocks = (payload) => ({
-  type: LOAD_STOCKS,
+export const filter = (payload) => ({
+  type: FILTER,
   payload,
 });
 
-export const fetchData = () => (dispatch) => fetch(
-  'https://financialmodelingprep.com/api/v3/stock_market/actives?apikey=6a1f14fc6eb501022eeed9081ebd4339',
+export const fetchDetail = (symbol) => (dispatch) => {
+  const url = `https://financialmodelingprep.com/api/v3/profile/${symbol}?apikey=9aad0298f707880a17c2fab9f596ab36`;
+  fetch(url)
+    .then((response) => response.json())
+    .then((data) => {
+      dispatch({
+        type: STOCK_DETAILS,
+        payload: data,
+      });
+    })
+    .catch((error) => console.log(error));
+};
+
+export const fetchData = () => async (dispatch) => fetch(
+  'https://financialmodelingprep.com/api/v3/stock_market/actives?apikey=9aad0298f707880a17c2fab9f596ab36',
 )
   .then((response) => response.json())
   .then((data) => {
-    data.forEach((stock) => {
-      dispatch({
-        type: LOAD_STOCKS,
-        payload: {
-          symbol: stock.symbol,
-          name: stock.name,
-          change: stock.change,
-          price: stock.price,
-          changesPercentage: stock.changesPercentage,
-        },
-      });
+    dispatch({
+      type: LOAD_STOCKS,
+      payload: data,
     });
   })
   .catch((error) => console.log(error));
 
 // reducer
 
-const initialState = [];
+const initialState = {
+  stocksList: [],
+  header: 'All Stocks',
+  stockDetails: {},
+  filteredArr: [],
+};
 
 const reducer = (state = initialState, action) => {
   switch (action.type) {
     case LOAD_STOCKS:
-      return [...state, action.payload];
+      return { ...state, stocksList: action.payload };
+
+    case STOCK_DETAILS:
+      return { ...state, stockDetails: action.payload };
+
+    case FILTER:
+      if (action.payload === '') {
+        return { ...state, filteredArr: [...state.stocksList] };
+      }
+      return {
+        ...state,
+        filteredArr: [
+          ...state.stocksList.filter(({ name }) => name.toLowerCase().includes(action.payload.toLowerCase())),
+        ],
+      };
 
     default:
       return state;

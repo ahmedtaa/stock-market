@@ -1,0 +1,12 @@
+.icon img {
+  height: 20px;
+}
+
+.align {
+  align-self: center;
+}
+
+.header {
+  padding: 10px 0;
+  margin: 0 !important;
+}

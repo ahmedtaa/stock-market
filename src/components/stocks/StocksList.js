@@ -1,32 +1,70 @@
-import { useSelector, useDispatch } from 'react-redux';
+/* eslint-disable jsx-a11y/anchor-is-valid */
+/* eslint-disable jsx-a11y/no-static-element-interactions */
+/* eslint-disable jsx-a11y/click-events-have-key-events */
+import { useState } from 'react';
+import { useDispatch, useSelector } from 'react-redux';
 import {
-  Row, Col, Card, ListGroup,
+  Row,
+  Col,
+  Card,
+  ListGroup,
+  Container,
+  InputGroup,
+  FormControl,
 } from 'react-bootstrap';
-// import Button from 'react-bootstrap/Button';
-// import Badge from 'react-bootstrap/Badge';
-// import { loadStocks } from '../../redux/stokes/stokes';
+import { NavLink } from 'react-router-dom';
+import arrow from '../../img/left-arrow.svg';
+import './stockslist.css';
+import { filter } from '../../redux/stokes/stokes';
 
 export default function MissionsList() {
-  const stocksList = useSelector((state) => state.stocksReducer);
+  let list = [];
   const dispatch = useDispatch();
+  const store = useSelector((state) => state.stocksReducer);
+  const { filteredArr, stocksList } = store;
 
+  const [searchTerm, setSearchTerm] = useState();
+  const handleSearch = (e) => {
+    setSearchTerm(e.target.value);
+    dispatch(filter(e.target.value));
+  };
+  if (filteredArr.length === 0 && searchTerm === '') {
+    list = stocksList;
+  } else {
+    list = filteredArr;
+  }
   return (
-    <Row xs={2} md={4} className="g-4">
-      {stocksList.map((stock) => (
-        <Col key={stock.symbol}>
-          <Card>
-            {/* <Card.Img variant="top" src="holder.js/100px160" /> */}
-            <Card.Body>
-              <Card.Title>{stock.name}</Card.Title>
-              <ListGroup variant="flush">
-                <ListGroup.Item>{stock.change}</ListGroup.Item>
-                <ListGroup.Item>{stock.price}</ListGroup.Item>
-                <ListGroup.Item>{stock.changesPercentage}</ListGroup.Item>
-              </ListGroup>
-            </Card.Body>
-          </Card>
-        </Col>
-      ))}
-    </Row>
+    <>
+      <Container fluid>
+        <InputGroup>
+          <FormControl
+            placeholder="Search Company"
+            onChange={handleSearch}
+            value={searchTerm}
+          />
+        </InputGroup>
+      </Container>
+      <Row xs={2} md={4} className="g-4">
+        {list.map((stock) => (
+          <Col key={stock.symbol}>
+            <Card>
+              <Card.Body>
+                <Card.Title>
+                  {stock.name}
+                  <NavLink className="item" to={`/${stock.symbol}`}>
+                    <img src={arrow} alt="" />
+                  </NavLink>
+                </Card.Title>
+                <ListGroup variant="flush">
+                  <ListGroup.Item>{stock.change}</ListGroup.Item>
+                  <ListGroup.Item>{stock.price}</ListGroup.Item>
+                  <ListGroup.Item>{stock.changesPercentage}</ListGroup.Item>
+                </ListGroup>
+              </Card.Body>
+            </Card>
+          </Col>
+        ))}
+      </Row>
+    </>
   );
 }
