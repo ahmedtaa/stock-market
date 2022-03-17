@@ -68,5 +68,5 @@ export default function Details() {
     );
   }
 
-  return <>loading....</>;
+  return <>loading.....</>;
 }
