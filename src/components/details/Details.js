@@ -11,7 +11,6 @@ import {
   Col,
 } from 'react-bootstrap';
 import { fetchDetail } from '../../redux/stokes/stokes';
-import './details.css';
 
 export default function Details() {
   const params = useParams();
