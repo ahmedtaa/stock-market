@@ -4,15 +4,13 @@ import MockStocks from '../__mocks__/MockStocks';
 
 describe('Test all synchronous actions', () => {
   const Data = MockStocks.map(
-    ({
-      symbol, name, change, price, changesPercentage,
-    }) => ({
+    ({ symbol, name, change, price, changesPercentage }) => ({
       id: symbol,
       change,
       name,
       price,
       changesPercentage,
-    }),
+    })
   );
 
   const stocksData = {
@@ -26,7 +24,7 @@ describe('Test all synchronous actions', () => {
     type: 'stokeStore/stokes/LOAD_STOCKS',
     payload: Data,
   });
-  console.log('+++++++++++++++++++', dataPush);
+
   it('load all the active stock companies', () => {
     expect(dataPush.stocksList).toEqual(Data);
   });

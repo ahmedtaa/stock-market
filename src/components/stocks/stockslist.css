@@ -5,3 +5,12 @@
 .g-4 {
   margin: 20px 20px;
 }
+
+.logo {
+  height: 60px;
+}
+
+.align-me {
+  display: flex;
+  align-items: center;
+}

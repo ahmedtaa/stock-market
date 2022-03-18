@@ -20,21 +20,20 @@ export const fetchDetail = (symbol) => (dispatch) => {
         type: STOCK_DETAILS,
         payload: data,
       });
-    })
-    .catch((error) => console.log(error));
+    });
 };
 
-export const fetchData = () => async (dispatch) => fetch(
-  'https://financialmodelingprep.com/api/v3/stock_market/actives?apikey=9aad0298f707880a17c2fab9f596ab36',
-)
-  .then((response) => response.json())
-  .then((data) => {
-    dispatch({
-      type: LOAD_STOCKS,
-      payload: data,
+export const fetchData = () => async (dispatch) =>
+  fetch(
+    'https://financialmodelingprep.com/api/v3/stock_market/actives?apikey=9aad0298f707880a17c2fab9f596ab36'
+  )
+    .then((response) => response.json())
+    .then((data) => {
+      dispatch({
+        type: LOAD_STOCKS,
+        payload: data,
+      });
     });
-  })
-  .catch((error) => console.log(error));
 
 // reducer
 
@@ -60,7 +59,9 @@ const reducer = (state = initialState, action) => {
       return {
         ...state,
         filteredArr: [
-          ...state.stocksList.filter(({ name }) => name.toLowerCase().includes(action.payload.toLowerCase())),
+          ...state.stocksList.filter(({ name }) =>
+            name.toLowerCase().includes(action.payload.toLowerCase())
+          ),
         ],
       };
 
