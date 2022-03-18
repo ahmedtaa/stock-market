@@ -49,7 +49,8 @@ export default function StocksList() {
             <blockquote className="blockquote mb-0">
               <p>
                 The best way you can predict the future is
-                <strong> TO CREATE IT</strong>.
+                <strong> TO CREATE IT</strong>
+                .
               </p>
               <footer className="blockquote-footer">
                 Someone famous said that
@@ -74,10 +75,17 @@ export default function StocksList() {
                 <Card.Body>
                   <Card.Title>{stock.name}</Card.Title>
                   <ListGroup variant="flush">
-                    <ListGroup.Item>Change :{stock.change}</ListGroup.Item>
-                    <ListGroup.Item>Price :{stock.price}</ListGroup.Item>
                     <ListGroup.Item>
-                      Changes % :{stock.changesPercentage}
+                      Change :
+                      {stock.change}
+                    </ListGroup.Item>
+                    <ListGroup.Item>
+                      Price :
+                      {stock.price}
+                    </ListGroup.Item>
+                    <ListGroup.Item>
+                      Changes % :
+                      {stock.changesPercentage}
                     </ListGroup.Item>
                     <ListGroup.Item>
                       <NavLink className="item" to={`/${stock.symbol}`}>

@@ -21,7 +21,7 @@ beforeEach(() => {
       <Router>
         <StocksList />
       </Router>
-    </Provider>
+    </Provider>,
   );
 });
 

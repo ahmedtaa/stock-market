@@ -4,13 +4,15 @@ import MockStocks from '../__mocks__/MockStocks';
 
 describe('Test all synchronous actions', () => {
   const Data = MockStocks.map(
-    ({ symbol, name, change, price, changesPercentage }) => ({
+    ({
+      symbol, name, change, price, changesPercentage,
+    }) => ({
       id: symbol,
       change,
       name,
       price,
       changesPercentage,
-    })
+    }),
   );
 
   const stocksData = {
