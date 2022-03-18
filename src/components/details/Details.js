@@ -41,7 +41,11 @@ export default function Details() {
           <Row>
             <Col>
               <Card>
-                <Card.Img variant="top" src={image} />
+                <Card.Img
+                  className="w-50 .d-inline-flex align-self-center"
+                  variant="top"
+                  src={image}
+                />
                 <Card.Body>
                   <Card.Title>{companyName}</Card.Title>
                   <Card.Text>{description}</Card.Text>
