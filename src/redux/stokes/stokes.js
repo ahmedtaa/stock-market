@@ -20,8 +20,7 @@ export const fetchDetail = (symbol) => (dispatch) => {
         type: STOCK_DETAILS,
         payload: data,
       });
-    })
-    .catch((error) => console.log(error));
+    });
 };
 
 export const fetchData = () => async (dispatch) => fetch(
@@ -33,8 +32,7 @@ export const fetchData = () => async (dispatch) => fetch(
       type: LOAD_STOCKS,
       payload: data,
     });
-  })
-  .catch((error) => console.log(error));
+  });
 
 // reducer
 
