@@ -11,6 +11,7 @@ import {
   Col,
 } from 'react-bootstrap';
 import { fetchDetail } from '../../redux/stokes/stokes';
+import './details.css';
 
 export default function Details() {
   const params = useParams();
@@ -41,7 +42,11 @@ export default function Details() {
           <Row>
             <Col>
               <Card>
-                <Card.Img variant="top" src={image} />
+                <Card.Img
+                  className="w-50 .d-inline-flex align-self-center"
+                  variant="top"
+                  src={image}
+                />
                 <Card.Body>
                   <Card.Title>{companyName}</Card.Title>
                   <Card.Text>{description}</Card.Text>
